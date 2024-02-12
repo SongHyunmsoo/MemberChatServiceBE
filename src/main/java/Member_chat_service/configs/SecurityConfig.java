@@ -1,4 +1,4 @@
-package Member_chat_service.configs.commons.contants;
+package Member_chat_service.configs;
 
 
 import org.springframework.context.annotation.Bean;

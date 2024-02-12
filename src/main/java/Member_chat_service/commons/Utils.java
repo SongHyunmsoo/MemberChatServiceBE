@@ -1,0 +1,48 @@
+package Member_chat_service.commons;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+
+import java.util.*;
+
+public class Utils {
+    private static ResourceBundle validationsBundle;
+    private static ResourceBundle errorsBundle;
+
+    static {
+        validationsBundle = ResourceBundle.getBundle("messages.validations");
+        errorsBundle = ResourceBundle.getBundle("messages.errors");
+    }
+
+    public static String getMessage(String code, String bundleType) {
+        bundleType = Objects.requireNonNullElse(bundleType, "validation");
+        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
+        try {
+            return bundle.getString(code);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Map<String, List<String>> getMessages(Errors errors){
+        try {
+
+            Map<String, List<String>> data = new HashMap<>();
+            for (FieldError error : errors.getFieldErrors()) {
+                String field = error.getField();
+                List<String> message = Arrays.stream(error.getCodes()).sorted(Comparator.reverseOrder())
+                        .map(c -> getMessage(c, "validation"))
+                        .filter(c -> c != null)
+                        .toList();
+                // NotBlank, NotBlank.email  이런식으로 에러가 나온다.
+
+                data.put(field, message);
+
+            }
+            return data;
+        }catch (Exception e) {
+            return null;
+        }
+
+    }
+}

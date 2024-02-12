@@ -1,6 +1,6 @@
-package Member_chat_service.configs.entities;
+package Member_chat_service.entities;
 
-import Member_chat_service.configs.commons.contants.MemberType;
+import Member_chat_service.commons.contants.MemberType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

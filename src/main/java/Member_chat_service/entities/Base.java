@@ -1,4 +1,4 @@
-package Member_chat_service.configs.entities;
+package Member_chat_service.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
