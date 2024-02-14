@@ -6,6 +6,8 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
@@ -15,7 +17,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class CustomJwtFilter extends GenericFilterBean {
-
+// 필터 클래스
     private final TokenProvider tokenProvider;
 
     @Override
@@ -26,9 +28,19 @@ public class CustomJwtFilter extends GenericFilterBean {
         String header = req.getHeader("Authorization");
         String jwt = null;
         if (StringUtils.hasText(header)) {
+            //  StringUtils 에서 hasText 코드가 널값 체크 + 공백 체크
             jwt = header.substring(7);
-            //Bear
-        }|
+            //Bearer.... 토큰 Bearer명칭
+        }
+
+        /* 로그인 유지 처리 S */
+        if (StringUtils.hasText(jwt)) {
+            tokenProvider.validateToken(jwt); // 토큰 이상시 예외 발생
+
+            Authentication authentication = tokenProvider.getAuthentication(jwt);
+            SecurityContextHolder.getContext().setAuthentication(authentication);   // 성공시 로그인 유지 코드
+        }
+        /* 로그인 유지 처리 E */
 
         /* 요청 헤더 Authoriztion 항목의 JWT 토큰 추출  S */
 
