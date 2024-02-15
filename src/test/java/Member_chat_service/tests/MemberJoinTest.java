@@ -26,12 +26,12 @@ public class MemberJoinTest {
     @DisplayName("회원 가입 테스트")
     void joinTest () throws Exception {
         RequestJoin form = RequestJoin.builder()
-                //.email("user01@test.org")
-                //.password("_aA123456")
-                //.con firmPassword("_aA123456")
-                //.name("사용자01")
+                .email("user01@test.org")
+                .password("_aA123456")
+                .confirmPassword("_aA123456")
+                .name("사용자01")
                 .mobile("010-0000-0000")
-                //.agree(true)
+                .agree(true)
                 .build();
 
         ObjectMapper om = new ObjectMapper();

@@ -3,6 +3,8 @@ package Member_chat_service.api.controllers.members;
 import Member_chat_service.commons.Utils;
 import Member_chat_service.commons.exceptions.BadRequestException;
 import Member_chat_service.commons.rests.JSONData;
+import Member_chat_service.entities.Member;
+import Member_chat_service.models.member.MemberInfo;
 import Member_chat_service.models.member.MemberLoginService;
 import Member_chat_service.models.member.MemberSaveService;
 import jakarta.validation.Valid;
@@ -10,11 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/member")
@@ -69,6 +70,19 @@ public class MemberController {
 
     }
 
+    @GetMapping("/info")
+    public JSONData info(@AuthenticationPrincipal MemberInfo memberInfo) {
+        Member member = memberInfo.getMember();
+
+        return new JSONData(member);
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")  // 관리자 권한
+    public String admin() {
+        return "관리자 페이지 접속...";
+    }
+
     /**
      * 에러 발생시 에러 메세지 코드
      * errorProcess 로 메서드 정의
@@ -80,4 +94,6 @@ public class MemberController {
         }
 
     }
+
+
 }

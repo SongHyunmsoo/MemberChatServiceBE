@@ -1,0 +1,19 @@
+spring:
+  # 데이터 베이스 연결 설정
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        # 실행되는 쿼리 콘솔 출력
+        show_sql: true
+        # 콘솔 창에 출력되는 쿼리를 가독성 좋게 포매팅
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddlAuto: create

@@ -26,7 +26,6 @@ public class JoinValidator implements Validator, PasswordValidator, MobileValida
     @Override
     public void validate(Object target, Errors errors) {
         RequestJoin form = (RequestJoin)target;
-
         /**
          * 1. 아이디 중복 여부 체크
          * 2. 비밀번호 복잡성 체크
