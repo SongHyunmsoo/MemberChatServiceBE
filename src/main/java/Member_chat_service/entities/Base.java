@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 
 // 상속을 통해 사용하기 위해 추상클래스 선언
 public abstract class Base {
-    
+
     @CreatedDate    // 처음 등록할때 추가
     @Column(updatable = false)
     private LocalDateTime createdAt; // 등록일자
-    
+
     @LastModifiedDate   // 수정할때 추가
-    @Column (insertable = false)
+    @Column(insertable = false)
     private LocalDateTime modifiedAt; // 수정일자
 
 }

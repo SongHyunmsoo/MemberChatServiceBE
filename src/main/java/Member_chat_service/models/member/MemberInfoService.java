@@ -33,7 +33,6 @@ public class MemberInfoService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(type.name()));
 
-
         return MemberInfo.builder()
                 .email(member.getEmail())
                 .password(member.getPassword())

@@ -11,7 +11,7 @@ public record RequestJoin(
 
         @NotBlank @Email
         String email,
-        @NotBlank @Size(min = 8)
+        @NotBlank @Size(min=8)
         String password,
         @NotBlank
         String confirmPassword, // 페스워드 확인

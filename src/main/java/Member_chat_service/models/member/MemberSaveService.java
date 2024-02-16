@@ -24,17 +24,18 @@ public class MemberSaveService {
         if (errors.hasErrors()) {
             return;
         }
-        //  회원 가입 처리
-         String hash = passwordEncoder.encode(form.password());
-         Member member = Member.builder()
-                 .email(form.email())
-                 .name(form.name())
-                 .password(form.password())
-                 .mobile(form.mobile())
-                 .type(MemberType.USER)
-                 .build();
 
-         save(member);
+        // 회원 가입 처리
+        String hash = passwordEncoder.encode(form.password());
+        Member member = Member.builder()
+                .email(form.email())
+                .name(form.name())
+                .password(hash)
+                .mobile(form.mobile())
+                .type(MemberType.USER)
+                .build();
+
+        save(member);
     }
 
     public void save(Member member) {

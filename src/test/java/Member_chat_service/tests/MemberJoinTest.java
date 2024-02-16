@@ -24,7 +24,7 @@ public class MemberJoinTest {
 
     @Test
     @DisplayName("회원 가입 테스트")
-    void joinTest () throws Exception {
+    void joinTest() throws Exception {
         RequestJoin form = RequestJoin.builder()
                 .email("user01@test.org")
                 .password("_aA123456")
@@ -36,19 +36,14 @@ public class MemberJoinTest {
 
         ObjectMapper om = new ObjectMapper();
         String params = om.writeValueAsString(form);
-        System.out.println(params);
 
         mockMvc.perform(
                 post("/api/v1/member")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .characterEncoding("UTF-8")
-                .content(params)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .characterEncoding("UTF-8")
+                        .content(params)
                 //.with(csrf().asHeader())
-
         ).andDo(print());
 
-
     }
-
-
 }

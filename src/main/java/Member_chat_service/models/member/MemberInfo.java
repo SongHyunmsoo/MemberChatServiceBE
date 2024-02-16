@@ -36,22 +36,22 @@ public class MemberInfo implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {  // 계정이 만료되지 않음
+    public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {   // 계정 장금 확인
+    public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {  // 자격증명 (기한 만료,비밀번호 만료)여부 확인
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isEnabled() {    // 계정 활성화 여부
+    public boolean isEnabled() {
         return true;
     }
 }

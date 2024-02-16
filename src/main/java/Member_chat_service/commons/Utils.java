@@ -24,25 +24,26 @@ public class Utils {
         }
     }
 
-    public static Map<String, List<String>> getMessages(Errors errors){
+    public static Map<String, List<String>> getMessages(Errors errors) {
         try {
-
             Map<String, List<String>> data = new HashMap<>();
             for (FieldError error : errors.getFieldErrors()) {
                 String field = error.getField();
-                List<String> message = Arrays.stream(error.getCodes()).sorted(Comparator.reverseOrder())
+                List<String> messages = Arrays.stream(error.getCodes()).sorted(Comparator.reverseOrder())
                         .map(c -> getMessage(c, "validation"))
                         .filter(c -> c != null)
                         .toList();
                 // NotBlank, NotBlank.email  이런식으로 에러가 나온다.
 
-                data.put(field, message);
 
+                data.put(field, messages);
             }
             return data;
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             return null;
         }
+
 
     }
 }

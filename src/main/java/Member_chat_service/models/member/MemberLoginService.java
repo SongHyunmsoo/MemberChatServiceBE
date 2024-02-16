@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor    // 토큰을가지고 정보를 만들어야하기에
 public class MemberLoginService {
-
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -20,8 +19,9 @@ public class MemberLoginService {
      * @ form 양식이라 지키자
      * String 반환값은 스트링
      */
-    public String login(RequestLogin form){
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(form.email(),form.password());
+    public String login(RequestLogin form) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(form.email(), form.password());
+
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         // 로그인 처리!!
 

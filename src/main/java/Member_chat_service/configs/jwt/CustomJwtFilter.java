@@ -32,19 +32,17 @@ public class CustomJwtFilter extends GenericFilterBean {
             jwt = header.substring(7);
             //Bearer.... 토큰 Bearer명칭
         }
+        /* 요청 헤더 Authoriztion 항목의 JWT 토큰 추출 E */
 
         /* 로그인 유지 처리 S */
         if (StringUtils.hasText(jwt)) {
-            tokenProvider.validateToken(jwt); // 토큰 이상시 예외 발생
+            tokenProvider.validateToken(jwt); // 토큰 이상시 -> 예외 발생
 
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);   // 성공시 로그인 유지 코드
         }
         /* 로그인 유지 처리 E */
 
-        /* 요청 헤더 Authoriztion 항목의 JWT 토큰 추출  S */
-
         chain.doFilter(request, response);
-
     }
 }

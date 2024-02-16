@@ -30,8 +30,8 @@ public class MemberController {
      *
      */
     @PostMapping
-    public ResponseEntity<JSONData> join(@RequestBody @Valid RequestJoin form, Errors errors)  {
-        saveService.save(form,errors);
+    public ResponseEntity<JSONData> join(@RequestBody @Valid RequestJoin form, Errors errors) {
+        saveService.save(form, errors);
 
         errorProcess(errors);
 
@@ -39,7 +39,6 @@ public class MemberController {
         data.setStatus(HttpStatus.CREATED);
 
         return ResponseEntity.status(data.getStatus()).body(data);
-
     }
 
     /**
@@ -64,10 +63,9 @@ public class MemberController {
 
         JSONData data = new JSONData(accessToken);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer"+accessToken);
+        headers.add("Authorization", "Bearer " + accessToken);
 
         return ResponseEntity.status(data.getStatus()).headers(headers).body(data);
-
     }
 
     @GetMapping("/info")
@@ -78,9 +76,9 @@ public class MemberController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")  // 관리자 권한
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String admin() {
-        return "관리자 페이지 접속...";
+        return "관리자 페이지 접속....";
     }
 
     /**
@@ -92,8 +90,5 @@ public class MemberController {
         if (errors.hasErrors()) {
             throw new BadRequestException(Utils.getMessages(errors));
         }
-
     }
-
-
 }

@@ -15,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
-    public MessageSource messageSource(){
+    public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.setBasenames("messages.commons","messages.validations","messages.errors");
+        ms.setBasenames("messages.commons",  "messages.validations", "messages.errors");
 
         return ms;
     }
@@ -31,7 +31,7 @@ public class MvcConfig implements WebMvcConfigurer {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
-        source.registerCorsConfiguration("/api/**",config);
+        source.registerCorsConfiguration("/api/**", config);
 
         return new CorsFilter(source);
     }

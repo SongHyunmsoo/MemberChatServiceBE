@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional  // 오류 미리 방지 코드
 public class MemberLoginTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -40,6 +40,7 @@ public class MemberLoginTest {
     private PasswordEncoder encoder;
 
     private Member member;   // 회원가입 데이터
+
 
     @BeforeEach
     void init() {
@@ -52,6 +53,7 @@ public class MemberLoginTest {
                 .build();
         memberSaveService.save(member);
     }
+
 
     @Test
     @DisplayName("로그인시 토큰이 발급 되는지 확인")
@@ -68,7 +70,7 @@ public class MemberLoginTest {
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .content(params)
-        ).andDo(print())
+                ).andDo(print())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(Charset.forName("UTF-8"));
@@ -77,8 +79,8 @@ public class MemberLoginTest {
         String accessToken = (String)data.getData();
 
 
-        mockMvc.perform(get("api/v1/member/admin")
-                .header("Authorization", "Bearer " + accessToken)
+        mockMvc.perform(get("/api/v1/member/admin")
+                        .header("Authorization", "Bearer " + accessToken)
                 ).andDo(print())
                 .andExpect(status().isOk());
     }
@@ -90,6 +92,4 @@ public class MemberLoginTest {
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
-
-
 }
