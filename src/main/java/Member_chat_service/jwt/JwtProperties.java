@@ -1,4 +1,4 @@
-package Member_chat_service.configs.jwt;
+package Member_chat_service.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

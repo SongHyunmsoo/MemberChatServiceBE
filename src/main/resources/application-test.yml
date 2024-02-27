@@ -26,3 +26,6 @@ logging:
         type:
           descriptor:
             sql: trace
+cors:
+  origin: ${cors.origin}
+  # base64 인코딩

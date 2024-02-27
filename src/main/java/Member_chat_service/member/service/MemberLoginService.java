@@ -1,6 +1,6 @@
 package Member_chat_service.member.service;
 
-import Member_chat_service.configs.jwt.TokenProvider;
+import Member_chat_service.jwt.TokenProvider;
 import Member_chat_service.member.controllers.RequestLogin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
