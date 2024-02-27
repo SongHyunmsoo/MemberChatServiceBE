@@ -1,5 +1,7 @@
 package Member_chat_service.configs;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
+        //ms.setUseCodeAsDefaultMessage(true);
         ms.setBasenames("messages.commons",  "messages.validations", "messages.errors");
 
         return ms;
@@ -34,5 +37,13 @@ public class MvcConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/api/**", config);
 
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+
+        return om;
     }
 }

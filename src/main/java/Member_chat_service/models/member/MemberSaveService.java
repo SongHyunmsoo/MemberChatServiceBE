@@ -1,11 +1,10 @@
 package Member_chat_service.models.member;
 
 
-import Member_chat_service.api.controllers.members.JoinValidator;
 import Member_chat_service.api.controllers.members.RequestJoin;
-import Member_chat_service.commons.contants.MemberType;
-import Member_chat_service.entities.Member;
-import Member_chat_service.repositories.MemberRepository;
+import Member_chat_service.member.controllers.JoinValidator;
+import Member_chat_service.member.entities.Member;
+import Member_chat_service.member.repositories.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,20 +30,9 @@ public class MemberSaveService {
                 .email(form.email())
                 .name(form.name())
                 .password(hash)
-                .mobile(form.mobile())
-                .type(MemberType.USER)
                 .build();
 
         save(member);
     }
 
-    public void save(Member member) {
-        String mobile = member.getMobile();
-        if (member != null) {
-            mobile = mobile.replaceAll("\\D", "");
-            member.setMobile(mobile);
-        }
-
-        repository.saveAndFlush(member);
-    }
 }

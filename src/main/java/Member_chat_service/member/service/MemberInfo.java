@@ -1,24 +1,25 @@
-package Member_chat_service.models.member;
+package Member_chat_service.member.service;
 
-import Member_chat_service.entities.Member;
+import Member_chat_service.member.entities.Member;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-
 /**
  * UserDetails 스프링 시퀴리티가 제공하는 메서드
  */
-@Builder
 @Data
+@Builder
 public class MemberInfo implements UserDetails {
 
     private String email;
     private String password;
-    private Member member;   // 그외의 정보
-    private Collection<? extends GrantedAuthority> authorities;     // 권한
+    private Member member; // 그외의 정보
+    private boolean enable; // 탈퇴여부
+    private boolean lock; // 잠금
+    private Collection<? extends GrantedAuthority> authorities; // 권한
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -42,8 +43,8 @@ public class MemberInfo implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
-    }
+        return !lock;
+    } // 잠겨있는지
 
     @Override
     public boolean isCredentialsNonExpired() {
@@ -52,6 +53,6 @@ public class MemberInfo implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
-    }
+        return enable;
+    } // 탈퇴여부
 }

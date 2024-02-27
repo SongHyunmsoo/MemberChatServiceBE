@@ -30,6 +30,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http.csrf(c -> c.disable())
                 // csrf 코인 제거 jwt 코인을 사용하기 위해서
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)

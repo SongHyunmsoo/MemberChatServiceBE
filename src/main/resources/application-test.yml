@@ -17,3 +17,12 @@ spring:
         use_sql_comments: true
     hibernate:
       ddlAuto: create
+      # create 서버 실행시 초기화(test) 할때 사용
+      # update 정보가 저장됨
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

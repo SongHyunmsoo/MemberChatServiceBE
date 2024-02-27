@@ -1,49 +1,60 @@
 package Member_chat_service.commons;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class Utils {
-    private static ResourceBundle validationsBundle;
-    private static ResourceBundle errorsBundle;
 
-    static {
-        validationsBundle = ResourceBundle.getBundle("messages.validations");
-        errorsBundle = ResourceBundle.getBundle("messages.errors");
+    private final MessageSource messageSource;
+
+
+    public Map<String, List<String>> getErrorMessages(Errors errors) {
+        try {
+            Map<String, List<String>> messages = errors.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(FieldError::getField, e -> _getErrorMessages(e.getCodes()), (m1, m2) -> m2));
+
+
+            List<String> gMessages = errors.getGlobalErrors()
+                    .stream()
+                    .map(o -> {
+                        try {
+                            String message = messageSource.getMessage(o.getCode(), null, null);
+                            return message;
+                        } catch (Exception e) {
+                            return "";
+                        }
+                    }).filter(s -> !s.isBlank()).toList();
+
+            messages.put("global", gMessages);
+            return messages;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
-    public static String getMessage(String code, String bundleType) {
-        bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
-        try {
-            return bundle.getString(code);
-        } catch (Exception e) {
-            return null;
-        }
-    }
+    private List<String> _getErrorMessages(String[] codes) {
+        List<String> messages = Arrays.stream(codes)
+                .map(c -> {
+                    try {
+                        String message = messageSource.getMessage(c, null, null);
+                        return message;
+                    } catch (Exception e) {
+                        return "";
+                    }
+                })
+                .filter(s -> !s.isBlank()).toList();
 
-    public static Map<String, List<String>> getMessages(Errors errors) {
-        try {
-            Map<String, List<String>> data = new HashMap<>();
-            for (FieldError error : errors.getFieldErrors()) {
-                String field = error.getField();
-                List<String> messages = Arrays.stream(error.getCodes()).sorted(Comparator.reverseOrder())
-                        .map(c -> getMessage(c, "validation"))
-                        .filter(c -> c != null)
-                        .toList();
-                // NotBlank, NotBlank.email  이런식으로 에러가 나온다.
-
-
-                data.put(field, messages);
-            }
-            return data;
-
-        } catch (Exception e) {
-            return null;
-        }
-
-
+        return messages;
     }
 }

@@ -2,8 +2,8 @@ package Member_chat_service.configs.jwt;
 
 import Member_chat_service.commons.Utils;
 import Member_chat_service.commons.exceptions.BadRequestException;
-import Member_chat_service.models.member.MemberInfo;
-import Member_chat_service.models.member.MemberInfoService;
+import Member_chat_service.member.service.MemberInfo;
+import Member_chat_service.member.service.MemberInfoService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
