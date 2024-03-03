@@ -25,7 +25,7 @@ public class MemberController {
     private final MemberLoginService loginService;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")  // 로그인시 접근 가능
     public JSONData info(@AuthenticationPrincipal MemberInfo memberInfo) {
         Member member = memberInfo.getMember();
 

@@ -19,15 +19,15 @@ public abstract class Base {
 
     @CreatedDate    // 처음 등록할때 추가
     @Column(updatable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  // 제이슨 포멧 타입
     private LocalDateTime createdAt; // 등록일자
 
     @LastModifiedDate   // 수정할때 추가
     @Column(insertable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  // 제이슨 포멧 타입
     private LocalDateTime modifiedAt; // 수정일자
                         // 삭제시간
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  // 제이슨 포멧 타입
     private LocalDateTime deletedAt;
 }
 

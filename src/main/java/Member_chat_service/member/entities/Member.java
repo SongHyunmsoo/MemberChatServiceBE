@@ -24,7 +24,7 @@ public class Member extends Base {
     @Column(length=80, unique = true, nullable = false) // 널값 허용 안함
     private String email; // 이메일
 
-    @JsonIgnore
+    @JsonIgnore // 비밀번호 전송을 막기위한 코드
     @Column(length=65, nullable = false) // 널값 허용 안함
     private String password; // 비밀번호
 
